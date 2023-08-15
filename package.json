@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && NODE_ENV=production node serv/server.js",
+    "start": "NODE_ENV=production node serv/server.js",
     "test": "node serv/server.js",
     "build": "webpack --mode=production --node-env=production"
   },
