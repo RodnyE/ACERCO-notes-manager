@@ -1,2 +1,5 @@
 node_modules/
-dist/
+!serv/node_modules/
+
+output/docx/*.docx
+output/pdf/*.pdf
