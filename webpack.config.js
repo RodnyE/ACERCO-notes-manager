@@ -1,14 +1,13 @@
 
 const cfg = require('./config')
 const path = require('path');
-const { IgnorePlugin } = require("webpack");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const isProduction = process.env.NODE_ENV == 'production';
 
 
 module.exports = {
     entry: path.join(cfg.SRC, 'index.js'),
-    mode: isProduction ? 'production' : 'development',
+    mode: process.env.NODE_ENV,
     output: {
         path: cfg.DIST,
         filename: "bundle.js",
@@ -23,13 +22,16 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.join(cfg.PUBLIC, 'index.html'),
         }),
-        new IgnorePlugin({
-            resourceRegExp: isProduction ? /^eruda$/ : /^allinclude$/
-        }),
     ],
     resolve: {
         alias: {
-            "ui": cfg.SRC + "/ui/ui.js"
+            "ui": cfg.SRC + "/ui/ui.js",
+            "utils": cfg.SRC + "/utils",
+            "assets": cfg.SRC + "/assets",
+            "context": cfg.SRC + "/views/__context.jsx",
+            "eruda": isProduction ? 
+                cfg.SRC + "/utils/__eruda-fake.js" :
+                "eruda",
         },
         extensions: ["*", ".js", ".jsx"]
     },
@@ -44,7 +46,7 @@ module.exports = {
                 use: ['style-loader', 'css-loader', 'postcss-loader'],
             },
             {
-                test: /\.svg$/i,
+                test: /\.(otf|jpg|png|svg)$/i,
                 type: 'asset',
             },
         ],
