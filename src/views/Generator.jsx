@@ -22,7 +22,7 @@ export default function GeneratorView ({show}) {
     // Function to submit data
     const submitDocData = () => {
         const body = {
-            date: new Date(dateValue).getTime(),
+            date: new Date(dateValue).toString(),
             notes: notesValue.split("\n"),
             author: authorValue,
             entity: entityValue,
