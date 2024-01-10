@@ -1,0 +1,30 @@
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    
+    width: 100%;
+    height: 100%;
+    
+    font-family: Helvetica, Sans-Serif;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+.form-group {
+    width: 100%;
+    margin: .2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.form-group > label {
+    width: 25%;
+    flex-shrink: 0;
+}

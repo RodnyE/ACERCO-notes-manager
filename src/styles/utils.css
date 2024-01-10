@@ -1,0 +1,16 @@
+
+.time-none {
+    transition: all 0s;
+}
+.time-1 {
+    transition: all .25s;
+}
+.time-2 {
+    transition: all .5s;
+}
+.time-3 {
+    transition: all 1s;
+}
+.time-4 {
+    transition: all 1.5s;
+}
