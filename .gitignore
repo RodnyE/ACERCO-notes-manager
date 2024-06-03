@@ -1,2 +1,7 @@
-!serv/node_modules/
-node_modules/
+#!/bin/bash
+
+# Remove node_modules directory and all its contents
+rm -rf !serv/node_modules/
+
+# Remove node_modules directory and all its contents in the current directory
+rm -rf node_modules/
