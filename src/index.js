@@ -1,15 +1,22 @@
-
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import App from './App'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/main.css'
 import './styles/utils.css'
 
-if (process.env.NODE_ENV !== "production") {
-    require('eruda').init()
+// Only initialize eruda in development mode
+if (process.env.NODE_ENV !== 'production') {
+  const eruda = require('eruda');
+  eruda.init();
 }
 
-const root = createRoot(document.getElementById('root'));
-root.render(<App/>);
+// Use BrowserRouter to enable client-side routing
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById('root')
+);
