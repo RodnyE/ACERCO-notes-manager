@@ -1,40 +1,45 @@
-
 /**
- * Format the date in the desired format
+ * Format the date in the desired format (DD/MM/YYYY)
  * 
- * @param {string} dateString - a valid date
+ * @param {string} dateString - a valid date string in format YYYY-MM-DD
  * @return {string} - date in format DD/MM/YYYY
+ * @throws {Error} - if dateString is not a valid date
  */
 const formatDocumentDate = (dateString) => {
-    const date = new Date(dateString);
+  if (!dateString) {
+    throw new Error('Date string is required');
+  }
 
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
+  const date = new Date(dateString);
 
-    if (month < 10) month = '0' + month;
-    if (day < 10) day = '0' + day;
+  if (isNaN(date)) {
+    throw new Error('Invalid date string');
+  }
 
-    return day + "/" + month + "/" + year;
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${day}/${month}/${year}`;
 }
 
 /**
+ * Format the date in the desired format (DDMMYYYY)
+ * 
+ * @param {string} [dateString=''] - a valid date string in format YYYY-MM-DD or empty string
  * @return {string} - date in format DDMMYYYY
  */
-const formatDocumentDateId = (dateString) => {
-    const date = dateString ? new Date(dateString) : new Date();
+const formatDocumentDateId = (dateString = '') => {
+  const date = new Date(dateString);
 
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1; // `getMonth` method return 0 to 11 values
-    let day = date.getDate();
- 
-    if (month < 10) month = '0' + month;
-    if (day < 10) day = '0' + day;
-        
-    return '' + day + month + year;
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${day}${month}${year}`;
 }
 
 module.exports = {
-    formatDocumentDate,
-    formatDocumentDateId,
+  formatDocumentDate,
+  formatDocumentDateId,
 }
