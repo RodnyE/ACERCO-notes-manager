@@ -1,4 +1,3 @@
-
 import { useState, useContext } from "react"
 import { GlobalContext } from "context"
 
@@ -22,41 +21,51 @@ export default function LoginView ({show}) {
     } = useContext(GlobalContext);
     const [formDisabled, setFormDisabled] = useState(false);
     const [formInvalid, setFormInvalid] = useState(false);
-    
+
     /**
      * verify account
      */
-    const requestLogin = () => {
-        
+    const requestLogin = async () => {
         // admin login
         if (userName === "admin" && userPass === "admin") {
             return setCurrentView("AdminView");
         }
-        
+
         setFormDisabled(true);
-        http.post({
-            url: "/login",
-            body: {
-                name: userName,
-                pass: userPass,
-            }
-        })
-        .then(body => {
-            if (body.status) {
-                showPopup(body.data.message, "success");
-                setUserToken(body.data.token);
-                setCurrentView("GeneratorView");
+
+        try {
+            const response = await http.post({
+                url: "/login",
+                body: {
+                    name: userName,
+                    pass: userPass,
+                }
+            });
+
+            if (response.status) {
+                showPopup(response.data.message, "success");
+                setUserToken(response.data.token);
+                if (userToken) {
+                    setCurrentView("GeneratorView");
+                }
             }
             else {
-                if (body.data.type === "WRONG_PASS") setFormInvalid("pass-field");
-                if (body.data.type === "WRONG_NAME") setFormInvalid("name-field");
-                
-                showPopup(body.data.message, "danger"); 
+                if (response.data.type === "WRONG_PASS") setFormInvalid("pass-field");
+                if (response.data.type === "WRONG_NAME") setFormInvalid("name-field");
+
+                showPopup(response.data.message, "danger"); 
                 setFormDisabled(false);
             }
-        });
+        } catch (error) {
+            if (error.name === "NetworkError" || error.name === "TimeoutError") {
+                showPopup("Error de conexión, inténtalo de nuevo.", "danger");
+            } else {
+                showPopup("Error inesperado, inténtalo de nuevo.", "danger");
+            }
+            setFormDisabled(false);
+        }
     }
-    
+
     return ( 
       <View show={show}>
         <div className="h-100 d-flex flex-column justify-content-center align-items-center">
