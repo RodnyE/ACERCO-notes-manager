@@ -1,16 +1,27 @@
+[data-transition-duration] {
+  transition-property: all;
+  transition-timing-function: ease;
+}
 
-.time-none {
-    transition: all 0s;
+[data-transition-duration="0s"] {
+  transition-duration: 0s;
 }
-.time-1 {
-    transition: all .25s;
+
+[data-transition-duration="250ms"] {
+  transition-duration: 250ms;
 }
-.time-2 {
-    transition: all .5s;
+
+[data-transition-duration="500ms"] {
+  transition-duration: 500ms;
 }
-.time-3 {
-    transition: all 1s;
+
+[data-transition-duration="1s"] {
+  transition-duration: 1s;
 }
-.time-4 {
-    transition: all 1.5s;
+
+[data-transition-duration="1500ms"] {
+  transition-duration: 1500ms;
 }
+
+
+<div data-transition-duration="500ms">This element will transition over 500ms</div>
