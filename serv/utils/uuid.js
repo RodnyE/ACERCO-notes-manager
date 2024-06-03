@@ -1,6 +1,5 @@
+const { v4: createUuid } = require('uuid');
 
 module.exports = {
-    
-    // unic id - 
-    createUuid: require('uuid').v1,
-}
+  createUuid,
+};
